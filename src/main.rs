@@ -50,14 +50,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let cell_selector = Selector::parse("td").unwrap();
         let cells = row.select(&cell_selector).collect::<Vec<_>>();
         if !cells.is_empty() {
-            if cells
+            if !cells
                 .get(3)
                 .unwrap()
                 .text()
                 .collect::<String>()
-                .trim()
-                .len()
-                != 0
+                .trim().is_empty()
             {
                 // it is a city
                 let id_str = cells.get(0).unwrap().text().collect::<String>();

@@ -12,7 +12,7 @@ use util::{insert_city, insert_prefecture};
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let db_file_path = "location.db";
     if File::open(db_file_path).is_ok() {
-        remove_file(db_file_path).expect(&format!("Can not remove file: {}.", db_file_path));
+        remove_file(db_file_path).unwrap_or_else(|_| panic!("Can not remove file: {}.", db_file_path));
     };
     // create database
     let conn = Connection::open("location.db")?;

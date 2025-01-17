@@ -58,7 +58,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .trim().is_empty()
             {
                 // it is a city
-                let id_str = cells.get(0).unwrap().text().collect::<String>();
+                let id_str = cells.first().unwrap().text().collect::<String>();
                 let id = id_str.parse::<u32>().expect("Can not cast id_str to u32");
                 let parent_id = prefecture_counts;
                 let new_city = util::create_city(id, parent_id, &cells);

@@ -45,7 +45,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let row_selector = Selector::parse("table tr").expect("Failed to parse selector");
 
-    let count = 0;
     let mut prefecture_counts = 0;
     for row in document.select(&row_selector) {
         let cell_selector = Selector::parse("td").unwrap();

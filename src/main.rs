@@ -10,9 +10,10 @@ use util::{insert_city, insert_prefecture};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let greeting_file = File::open("location.db").map(|file| {
-        remove_file("location.db").expect("Delete existing db file failed.");
-    });
+    let db_file_path = "location.db";
+    if let Ok(_) = File::open(db_file_path) {
+        remove_file(db_file_path).expect(&format!("Can not remove file: {}.", db_file_path));
+    };
     // create database
     let conn = Connection::open("location.db")?;
     conn.execute(

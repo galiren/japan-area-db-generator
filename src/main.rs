@@ -62,16 +62,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let id = id_str.parse::<u32>().expect("Can not cast id_str to u32");
                 let parent_id = prefecture_counts;
                 let new_city = util::create_city(id, parent_id, &cells);
-                insert_city(&conn, "city", &new_city).unwrap();
+                insert_city(&conn, "city", &new_city).unwrap_or_else(|_| panic!("Can not insert into city table. city: {:#?}", new_city));
             } else {
                 // it is a prefecture
                 let new_prefecture = util::create_prefecture(prefecture_counts + 1, &cells);
                 prefecture_counts += 1;
-                insert_prefecture(&conn, "prefecture", &new_prefecture).unwrap();
+                insert_prefecture(&conn, "prefecture", &new_prefecture).unwrap_or_else(|_| panic!("Can not insert into prefecture table. prefecture: {:#?}", new_prefecture));
             }
         }
     }
 
-    conn.close().unwrap();
+    conn.close().expect("Database connection close failed.");
     Ok(())
 }

@@ -18,7 +18,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let conn = Connection::open("location.db")?;
     conn.execute(
         "CREATE TABLE prefecture (
-            id      INTEGER PRIMARY KEY,
+            id      INTEGER NOT NULL PRIMARY KEY,
             name    TEXT NOT NULL,
             read    TEXT NOT NULL
         )",
@@ -26,7 +26,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
     conn.execute(
         "CREATE TABLE city (
-        id  INTEGER PRIMARY KEY,
+        id  INTEGER  NOT NULL PRIMARY KEY,
         prefecture_id INTEGER NOT NULL,
         name TEXT NOT NULL,
         read TEXT NOT NULL,

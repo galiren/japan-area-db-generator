@@ -16,7 +16,7 @@ pub fn create_city(id: u32, parent_id: u32, cells: &Vec<ElementRef<'_>>) -> City
     let read = cells.get(4).unwrap().text().collect::<String>();
     City {
         id,
-        parent_id,
+        prefecture_id: parent_id,
         name,
         read,
     }
@@ -41,10 +41,10 @@ pub fn insert_prefecture(
 pub fn insert_city(conn: &Connection, table_name: &str, city: &City) -> Result<(), String> {
     conn.execute(
         &format!(
-            "INSERT INTO {} (id, parent_id, name, read) VALUES (?1, ?2, ?3, ?4)",
+            "INSERT INTO {} (id, prefecture_id, name, read) VALUES (?1, ?2, ?3, ?4)",
             table_name
         ),
-        (&city.id, &city.parent_id, &city.name, &city.read),
+        (&city.id, &city.prefecture_id, &city.name, &city.read),
     )
     .expect("insert_city error.");
     Ok(())

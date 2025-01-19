@@ -27,10 +27,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     conn.execute(
         "CREATE TABLE city (
         id  INTEGER PRIMARY KEY,
-        parent_id INTEGER NOT NULL,
+        prefecture_id INTEGER NOT NULL,
         name TEXT NOT NULL,
         read TEXT NOT NULL,
-        FOREIGN KEY(parent_id) REFERENCES prefecture(id)
+        FOREIGN KEY(prefecture_id) REFERENCES prefecture(id)
     )
     ",
         (),
